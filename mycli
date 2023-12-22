@@ -1,6 +1,10 @@
 #!/bin/bash
-export LIB_PATH="$(dirname "$0")/../libexec/"
-source $LIB_PATH/libs/testinglib.sh
+# Get Homebrew installation directory
+HOMEBREW_PREFIX=$(brew --prefix)
+
+# Adjust paths based on Homebrew installation
+LIB_PATH="$HOMEBREW_PREFIX/lib/mycli"
+source $LIB_PATH/lib/testinglib.sh
 
 echo "Welcome to the CLI released using gitops principal and published via github and brew"
 

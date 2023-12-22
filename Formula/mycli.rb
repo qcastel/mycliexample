@@ -13,11 +13,7 @@ class Mycli < Formula
     # Create the user data directory
     (etc/"mycli").mkpath
 
-    # Install additional directories to libexec
-    libexec.install %w[libs]
-
-    # Install version.txt to the libexec directory
-    libexec.install "version.txt"
+    lib.install "autocompletions", "version.txt", "lib"
 
     # Install the Zsh autocompletion file
     zsh_completion.install "autocompletions/mycli.zsh"
