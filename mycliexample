@@ -1,4 +1,55 @@
 #!/bin/bash
+#!/bin/bash
+
+# Configuration
+UPDATE_INTERVAL=86400  # 1 day in seconds
+
+# Function to check if an update is needed
+check_for_update() {
+    # Get the timestamp of the last update for mycliexample
+    last_update=$(brew info --json=v1 mycliexample | jq -r '.[0].updated')
+
+    # Get the current timestamp
+    current_time=$(date +%s)
+
+    # Check if the update interval has passed
+    if [ $((current_time - last_update)) -ge $UPDATE_INTERVAL ]; then
+        echo "Checking for updates..."
+        update_cli
+    else
+        echo "Skipping update check. Running existing mycliexample..."
+    fi
+}
+
+# Function to perform the update check and upgrade if needed
+update_cli() {
+    # Update Homebrew package lists
+    brew update
+
+    # Check if there are any outdated packages, specifically your CLI
+    if brew outdated mycliexample > /dev/null; then
+        read -p "A new version of mycliexample is available. Do you want to update? (y/n): " answer
+
+        if [ "$answer" == "y" ]; then
+            echo "Updating mycliexample..."
+            brew upgrade mycliexample
+            echo "mycliexample has been updated."
+        else
+            echo "Skipping update. Running existing mycliexample..."
+        fi
+    else
+        echo "mycliexample is up to date."
+    fi
+}
+
+# Perform the update check
+check_for_update
+
+# Rest of your CLI script goes here
+echo "Running mycliexample..."
+# Your CLI logic follows...
+
+
 # Get Homebrew installation directory
 HOMEBREW_PREFIX=$(brew --prefix)
 
