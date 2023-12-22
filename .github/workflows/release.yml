@@ -13,6 +13,24 @@ jobs:
         uses: mathieudutour/github-tag-action@v6.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          dry_run: true
+      
+      - name: Write new tag to version.txt
+        run: echo "${{ steps.tag_version.outputs.new_tag }}" > version.txt
+
+      - name: Commit and push version.txt
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add version.txt
+          git commit -m "Bump version to ${{ steps.tag_version.outputs.new_tag }}"
+          git push origin master
+
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Create a GitHub release
         uses: ncipollo/release-action@v1
         with:
