@@ -24,8 +24,10 @@ jobs:
       
       - name: Create release.tar.gz
         run: |
-          sed -i "s/VERSION/${{ steps.tag_version_dry.outputs.new_tag }}/g" Formula/mycli.rb
-          echo "${{ steps.tag_version_dry.outputs.new_tag }}" > version.txt
+          new_tag="${{ steps.tag_version_dry.outputs.new_tag }}"
+          new_tag_without_v="${new_tag#v}"
+          sed -i "s/VERSION/$new_tag_without_v/g" Formula/mycli.rb
+          echo "$new_tag_without_v" > version.txt
           tar -czvf release.tar.gz *
 
       - name: Create a GitHub release
