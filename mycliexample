@@ -4,10 +4,12 @@
 # Configuration
 UPDATE_INTERVAL=86400  # 1 day in seconds
 
+FORMULA_PATH=$(brew --prefix)/Homebrew/Library/Taps/qcastel/homebrew-test-cli-release/Formula/mycliexample.rb
+
 # Function to check if an update is needed
 check_for_update() {
-    # Get the timestamp of the last update for mycliexample
-    last_update=$(brew info --json=v1 mycliexample | jq -r '.[0].updated')
+    # Get the timestamp of the last update for mycliexample formula file
+    last_update=$(stat -f "%m" "$FORMULA_PATH")
 
     # Get the current timestamp
     current_time=$(date +%s)
@@ -20,6 +22,7 @@ check_for_update() {
         echo "Skipping update check. Running existing mycliexample..."
     fi
 }
+
 
 # Function to perform the update check and upgrade if needed
 update_cli() {
