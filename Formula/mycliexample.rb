@@ -1,4 +1,4 @@
-class Mycli < Formula
+class Mycliexample < Formula
   version "VERSION"  # Replace with the actual version number
   desc "Example of releasing a CLI into brew, using GitOps principles"
   homepage "https://github.com/qcastel/test-cli-release"
@@ -6,24 +6,24 @@ class Mycli < Formula
 
   def install
     # Install the executable to bin
-    bin.install "mycli"
+    bin.install "mycliexample"
 
     # Ensure execute permissions are set
-    chmod "+x", "#{bin}/mycli"
+    chmod "+x", "#{bin}/mycliexample"
 
     # Create the user data directory
-    (etc/"mycli").mkpath
+    (etc/"mycliexample").mkpath
 
-    # Copy everything under lib to /usr/local/lib/mycli
-    (lib/"mycli").install "version.txt", "lib"
+    # Copy everything under lib to /usr/local/lib/mycliexample
+    (lib/"mycliexample").install "version.txt", "lib"
 
     # Install the Zsh autocompletion file
-    zsh_completion.install "autocompletions/mycli.zsh"
+    zsh_completion.install "autocompletions/mycliexample.zsh"
 
   end
 
   test do
     # Your test logic here
-    system "#{bin}/mycli"
+    system "#{bin}/mycliexample"
   end
 end

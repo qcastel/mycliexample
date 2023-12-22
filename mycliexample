@@ -3,7 +3,7 @@
 HOMEBREW_PREFIX=$(brew --prefix)
 
 # Adjust paths based on Homebrew installation
-LIB_PATH="$HOMEBREW_PREFIX/lib/mycli"
+LIB_PATH="$HOMEBREW_PREFIX/lib/mycliexample"
 source $LIB_PATH/lib/testinglib.sh
 
 echo "Welcome to the CLI released using gitops principal and published via github and brew"

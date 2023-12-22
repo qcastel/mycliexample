@@ -26,7 +26,7 @@ jobs:
         run: |
           new_tag="${{ steps.tag_version_dry.outputs.new_tag }}"
           new_tag_without_v="${new_tag#v}"
-          sed -i "s/VERSION/$new_tag_without_v/g" Formula/mycli.rb
+          sed -i "s/VERSION/$new_tag_without_v/g" Formula/mycliexample.rb
           echo "$new_tag_without_v" > version.txt
           tar -czvf release.tar.gz *
 

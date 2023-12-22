@@ -1,6 +1,6 @@
 #compdef dkuremote
 
-_mycli() {
+_mycliexample() {
     local -a commands
 
     subcommands=(
@@ -10,4 +10,4 @@ _mycli() {
 }
 
 # Register the completion function
-compdef _mycli mycli
+compdef _mycliexample mycliexample
