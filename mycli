@@ -1,3 +1,32 @@
 echo "Welcome to the CLI released using gitops principal and published via github and brew"
-echo "Current version:"
-cat version.txt
+
+# Display the help
+help() (
+    self=$(basename "$0")
+    cat <<END_OF_HELP
+
+$(echo 'Get the current version')
+   $self version
+
+END_OF_HELP
+)
+
+cmd=${1:-}; shift || true
+case $cmd in
+    version)
+        echo "Current version:"
+        cat version.txt
+    ;;
+    h     ) help; exit 0 ;;
+    -h    ) help; exit 0 ;;
+    --h   ) help; exit 0 ;;
+    help  ) help; exit 0 ;;
+    -help ) help; exit 0 ;;
+    --help) help; exit 0 ;;
+
+    *)
+        self=$(basename "$0")
+        echo "unknown command \"$cmd\", type \"$self help\" for a list of available commands" >&2
+        exit 1
+        ;;
+esac

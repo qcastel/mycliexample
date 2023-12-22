@@ -8,21 +8,21 @@ class MyCli < Formula
       bin.install "dkuremote"
       
       # Create the user data directory
-      (etc/"dkuremote").mkpath
+      (etc/"mycli").mkpath
 
 
       # Install additional directories to libexec
-      libexec.install %w[clouds scripts]
+      libexec.install %w[libs]
 
       # Install the Zsh autocompletion file
-      zsh_completion.install "autocompletions/dkuremote.zsh"
+      zsh_completion.install "autocompletions/mycli.zsh"
     end
 
     end
   
     test do
       # Your test logic here
-      system "#{bin}/dkuremote", "env", "ls"
+      system "#{bin}/mycli"
     end
   end
   
