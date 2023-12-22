@@ -15,7 +15,24 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           dry_run: true
-    
+      
+      - name: Update version
+        run: |
+          new_tag="${{ steps.tag_version_dry.outputs.new_tag }}"
+          new_tag_without_v="${new_tag#v}"
+          cp Formula/mycliexample.rb.template Formula/mycliexample.rb
+          sed -i "s/VERSION/$new_tag_without_v/g" Formula/mycliexample.rb
+          echo "$new_tag_without_v" > version.txt
+
+      - name: Commit and push version.txt
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add version.txt
+          git add Formula/mycliexample.rb
+          git commit -m "Bump version to ${{ steps.tag_version_dry.outputs.new_tag }}"
+          git push origin master
+
       - name: Bump version and push tag
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.1
@@ -24,10 +41,6 @@ jobs:
       
       - name: Create release.tar.gz
         run: |
-          new_tag="${{ steps.tag_version_dry.outputs.new_tag }}"
-          new_tag_without_v="${new_tag#v}"
-          sed -i "s/VERSION/$new_tag_without_v/g" Formula/mycliexample.rb
-          echo "$new_tag_without_v" > version.txt
           tar -czvf release.tar.gz *
 
       - name: Create a GitHub release
