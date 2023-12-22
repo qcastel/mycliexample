@@ -16,6 +16,9 @@ class Mycli < Formula
     # Install additional directories to libexec
     libexec.install %w[libs]
 
+    # Install version.txt to the libexec directory
+    libexec.install "version.txt"
+
     # Install the Zsh autocompletion file
     zsh_completion.install "autocompletions/mycli.zsh"
   end
