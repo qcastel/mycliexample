@@ -6,7 +6,10 @@ class Mycli < Formula
 
   def install
     bin.install "mycli"
-    
+
+    # Set correct permissions for the mycli executable
+    chmod "+x", "#{bin}/mycli"
+
     # Create the user data directory
     (etc/"mycli").mkpath
 
@@ -19,6 +22,6 @@ class Mycli < Formula
 
   test do
     # Your test logic here
-    system "#{bin}/mycli version"
+    system "#{bin}/mycli"
   end
 end

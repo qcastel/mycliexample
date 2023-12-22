@@ -1,3 +1,4 @@
+#!/bin/bash
 echo "Welcome to the CLI released using gitops principal and published via github and brew"
 
 # Display the help
