@@ -23,7 +23,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add version.txt
-          git commit -m "Bump version to ${{ steps.tag_version.outputs.new_tag }}"
+          git commit -m "Bump version to ${{ steps.tag_version_dry.outputs.new_tag }}"
           git push origin master
 
       - name: Bump version and push tag
