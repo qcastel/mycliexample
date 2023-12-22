@@ -15,8 +15,6 @@ check_for_update() {
     # Check if the update interval has passed
     if [ $((current_time - last_update)) -ge $UPDATE_INTERVAL ]; then
         echo "Checking for updates..."
-        # Perform the update check
-        check_for_update
         update_cli
     else
         echo "Skipping update check. Running existing mycliexample..."
