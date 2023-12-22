@@ -16,13 +16,14 @@ jobs:
           dry_run: true
       
       - name: Write new tag to version.txt
-        run: echo "${{ steps.tag_version.outputs.new_tag }}" > version.txt
+        run: echo "${{ steps.tag_version_dry.outputs.new_tag }}" > version.txt
 
       - name: Commit and push version.txt
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add version.txt
+          
           git commit -m "Bump version to ${{ steps.tag_version_dry.outputs.new_tag }}"
           git push origin master
 
