@@ -1,5 +1,5 @@
 class Mycliexample < Formula
-  version "0.0.21"  # Replace with the actual version number
+  version "0.0.22"  # Replace with the actual version number
   desc "Example of releasing a CLI into brew, using GitOps principles"
   homepage "https://github.com/qcastel/test-cli-release"
   url "https://github.com/qcastel/test-cli-release/releases/latest/download/release.tar.gz"
