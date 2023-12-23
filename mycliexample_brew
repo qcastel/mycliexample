@@ -3,7 +3,7 @@
 # Configuration
 UPDATE_INTERVAL=86400  # 1 day in seconds
 
-FORMULA_PATH=$(brew --prefix)/Homebrew/Library/Taps/qcastel/homebrew-test-cli-release/Formula/mycliexample.rb
+FORMULA_PATH=$(brew --prefix)/Homebrew/Library/Taps/qcastel/homebrew-mycliexample/Formula/mycliexample.rb
 
 # Function to check if an update is needed
 check_for_update() {

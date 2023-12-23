@@ -3,7 +3,7 @@
 ## Resulting installation of the CLI
 
 ```
-brew tap qcastel/test-cli-release git@github.com:qcastel/test-cli-release.git
+brew tap qcastel/mycliexample git@github.com:qcastel/mycliexample.git
 brew install mycliexample
 ```
 
