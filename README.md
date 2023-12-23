@@ -1,4 +1,4 @@
-# Example of releasing a CLI with brew, using GitOps principles on a github repository
+# Example of Releasing a CLI with Homebrew and GitOps on GitHub
 
 ## Resulting installation of the CLI
 
@@ -7,18 +7,19 @@ brew tap qcastel/mycliexample git@github.com:qcastel/mycliexample.git
 brew install mycliexample
 ```
 
-The CLI will verify each day if a new upgrade is available via brew.
+The CLI will verify each day if a new upgrade is available via Homebrew.
 
 ## How it works
 
 ### github actions
 
-The CI is implemented using github actions, which will release the cli on each commit into master.
-The release will also manage the versioning of your CLI
+The CI is implemented using GitHub Actions, which releases the CLI on each commit to the master branch.
+The release process also manages the versioning of your CLI.
 
-### Brew
+### Homebrew
 
-Brew will fetch the `Formula/mycliexample.rb`, which is bumped at each release.
-
+Homebrew will fetch the Formula/mycliexample.rb, which is bumped at each release.
 
 Enjoy!
+
+
