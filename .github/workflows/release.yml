@@ -20,6 +20,8 @@ jobs:
         run: |
           new_tag="${{ steps.tag_version_dry.outputs.new_tag }}"
           cp Formula/mycliexample.rb.template Formula/mycliexample.rb
+          echo "#READ ONLY! EDIT TEMPLATE INSTEAD. THIS FILE WILL BE OVERRIDED AT THE NEXT RELEASE" | cat - Formula/mycliexample.rb > temp && mv temp Formula/mycliexample.rb
+          rm temp
           sed -i "s/VERSION/$new_tag/g" Formula/mycliexample.rb
           echo "$new_tag" > version.txt
 
