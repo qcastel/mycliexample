@@ -4,8 +4,7 @@ class Mycliexample < Formula
   homepage "https://github.com/qcastel/mycliexample"
   url "git@github.com:qcastel/mycliexample.git",
       using: :git,
-      tag:      "VERSION",
-      revision: "VERSION"
+      tag:      "VERSION"
 
   def install
     # Install the executable to bin
