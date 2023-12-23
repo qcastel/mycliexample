@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export CLI_PATH=$( (readlink "$0" || which "$0") | xargs dirname )
+export LIB_PATH=$( (readlink "$0" || which "$0") | xargs dirname )
 
 if [ -z "${CLI_TERMINAL_SESSION_ID-}" ]; then
     export CLI_TERMINAL_SESSION_ID=$PPID
@@ -48,4 +48,4 @@ if [ ! -e "$SESSION_INFO_FILE" ]; then
 fi
 
 # Execute the core script
-"$CLI_PATH"/lib/_mycliexample "$@"
+"$LIB_PATH"/lib/_mycliexample "$@"

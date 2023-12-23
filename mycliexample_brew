@@ -53,6 +53,6 @@ echo "Running mycliexample..."
 HOMEBREW_PREFIX=$(brew --prefix)
 
 # Adjust paths based on Homebrew installation
-LIB_PATH="$HOMEBREW_PREFIX/lib/mycliexample"
+export LIB_PATH="$HOMEBREW_PREFIX/lib/mycliexample"
 
 "$LIB_PATH"/lib/_mycliexample "$@"
