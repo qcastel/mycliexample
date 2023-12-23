@@ -2,7 +2,7 @@ class Mycliexample < Formula
   version "VERSION"
   desc "Example of releasing a CLI into brew, using GitOps principles"
   homepage "https://github.com/qcastel/mycliexample"
-  url "git@github.com:dataiku/dataiku-platform-tooling.git",
+  url "git@github.com:qcastel/mycliexample.git",
       tag:      "VERSION",
       revision: "VERSION"
 
