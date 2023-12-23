@@ -1,9 +1,9 @@
 #READ ONLY! EDIT TEMPLATE INSTEAD. THIS FILE WILL BE OVERRIDED AT THE NEXT RELEASE
 class Mycliexample < Formula
-  version "v0.0.24"
+  version "v0.0.25"
   desc "Example of releasing a CLI into brew, using GitOps principles"
-  homepage "https://github.com/qcastel/test-cli-release"
-  url "git@github.com:dataiku/dataiku-platform-tooling.git", :using => :git, :tag => 'v0.0.24'
+  homepage "https://github.com/qcastel/mycliexample"
+  url "git@github.com:dataiku/dataiku-platform-tooling.git", :using => :git, :tag => 'v0.0.25'
 
   def install
     # Install the executable to bin
