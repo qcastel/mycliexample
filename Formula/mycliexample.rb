@@ -1,11 +1,11 @@
 #READ ONLY! EDIT TEMPLATE INSTEAD. THIS FILE WILL BE OVERRIDED AT THE NEXT RELEASE
 class Mycliexample < Formula
-  version "v0.0.27"
+  version "v0.0.28"
   desc "Example of releasing a CLI into brew, using GitOps principles"
   homepage "https://github.com/qcastel/mycliexample"
   url "git@github.com:qcastel/mycliexample.git",
-      tag:      "v0.0.27",
-      revision: "v0.0.27"
+      tag:      "v0.0.28",
+      revision: "v0.0.28"
 
   def install
     # Install the executable to bin
