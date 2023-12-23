@@ -1,91 +1,51 @@
 #!/bin/bash
-#!/bin/bash
 
-# Configuration
-UPDATE_INTERVAL=86400  # 1 day in seconds
+export CLI_PATH=$( (readlink "$0" || which "$0") | xargs dirname )
 
-FORMULA_PATH=$(brew --prefix)/Homebrew/Library/Taps/qcastel/homebrew-test-cli-release/Formula/mycliexample.rb
+if [ -z "${CLI_TERMINAL_SESSION_ID-}" ]; then
+    export CLI_TERMINAL_SESSION_ID=$PPID
+fi
 
-# Function to check if an update is needed
-check_for_update() {
-    # Get the timestamp of the last update for mycliexample formula file
-    last_update=$(stat -f "%m" "$FORMULA_PATH")
+export SESSION_INFO_FILE="/tmp/session_info_$CLI_TERMINAL_SESSION_ID.txt"
 
-    # Get the current timestamp
-    current_time=$(date +%s)
+# Check if the upgrade check has been performed in the current session
+if [ ! -e "$SESSION_INFO_FILE" ]; then
+    # This is the first time in the session, perform the upgrade check
+    touch "$SESSION_INFO_FILE"
 
-    # Check if the update interval has passed
-    if [ $((current_time - last_update)) -ge $UPDATE_INTERVAL ]; then
-        echo "Checking for updates..."
-        update_cli
-    else
-        echo "Skipping update check. Running existing mycliexample..."
-    fi
-}
+    # Function to check for updates and perform the upgrade
+    check_for_updates() {
+        git -C "$CLI_PATH" fetch origin main > /dev/null 2>&1
 
+        # Check if there are changes to pull
+        if [ "$(git -C "$CLI_PATH" rev-list HEAD...origin/main --count)" -gt 0 ]; then
+            echo "There are updates available."
 
-# Function to perform the update check and upgrade if needed
-update_cli() {
-    # Update Homebrew package lists
-    brew update
+            # List the commits that are missing from main without opening a pager
+            echo "Commits to be pulled:"
+            git -C "$CLI_PATH" --no-pager log --oneline HEAD..origin/main
 
-    # Check if there are any outdated packages, specifically your CLI
-    if brew outdated mycliexample > /dev/null; then
-        read -p "A new version of mycliexample is available. Do you want to update? (y/n): " answer
+            echo "Do you want to upgrade? (y/n)"
+            read -r response
 
-        if [ "$answer" == "y" ]; then
-            echo "Updating mycliexample..."
-            brew upgrade mycliexample
-            echo "mycliexample has been updated."
-        else
-            echo "Skipping update. Running existing mycliexample..."
+            if [ "$response" == "y" ]; then
+                echo "Pulling updates..."
+                git -C "$CLI_PATH" pull origin main
+                echo "Upgrade successful!"
+            else
+                echo "Skipping upgrade."
+            fi
+        else 
+            echo "No upgrade found."
         fi
-    else
-        echo "mycliexample is up to date."
-    fi
-}
+    }
+    echo "Checking for upgrades..."
+    # Check for updates before executing the core script
+    check_for_updates
 
-# Rest of your CLI script goes here
-echo "Running mycliexample..."
-# Your CLI logic follows...
+    # Set the flag indicating that the upgrade check has been performed
+    echo "export MYCLI_UPGRADE_CHECKED=true" >> "$SESSION_INFO_FILE"
+fi
 
-
-# Get Homebrew installation directory
-HOMEBREW_PREFIX=$(brew --prefix)
-
-# Adjust paths based on Homebrew installation
-LIB_PATH="$HOMEBREW_PREFIX/lib/mycliexample"
-source $LIB_PATH/lib/testinglib.sh
-
-echo "Welcome to the CLI released using gitops principal and published via github and brew"
-
-# Display the help
-help() (
-    self=$(basename "$0")
-    cat <<END_OF_HELP
-
-$(echo 'Get the current version')
-   $self version
-
-END_OF_HELP
-)
-
-cmd=${1:-}; shift || true
-case $cmd in
-    version)
-        echo "Current version:"
-        cat $LIB_PATH/version.txt
-    ;;
-    h     ) help; exit 0 ;;
-    -h    ) help; exit 0 ;;
-    --h   ) help; exit 0 ;;
-    help  ) help; exit 0 ;;
-    -help ) help; exit 0 ;;
-    --help) help; exit 0 ;;
-
-    *)
-        self=$(basename "$0")
-        echo "unknown command \"$cmd\", type \"$self help\" for a list of available commands" >&2
-        exit 1
-        ;;
-esac
+# Execute the core script
+"$CLI_PATH"/lib/_mycliexample "$@"

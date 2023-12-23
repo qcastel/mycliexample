@@ -1,4 +1,4 @@
-#compdef dkuremote
+#compdef mycliexample
 
 _mycliexample() {
     local -a commands

@@ -19,10 +19,9 @@ jobs:
       - name: Update version
         run: |
           new_tag="${{ steps.tag_version_dry.outputs.new_tag }}"
-          new_tag_without_v="${new_tag#v}"
           cp Formula/mycliexample.rb.template Formula/mycliexample.rb
-          sed -i "s/VERSION/$new_tag_without_v/g" Formula/mycliexample.rb
-          echo "$new_tag_without_v" > version.txt
+          sed -i "s/VERSION/$new_tag/g" Formula/mycliexample.rb
+          echo "$new_tag" > version.txt
 
       - name: Commit and push version.txt
         run: |
@@ -39,14 +38,14 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: Create release.tar.gz
+      - name: Create mycliexample_linux.tar.gz
         run: |
-          tar -czvf release.tar.gz *
+          tar -czvf mycliexample_linux.tar.gz *
 
       - name: Create a GitHub release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "release.tar.gz"
+          artifacts: "mycliexample_linux.tar.gz"
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}
