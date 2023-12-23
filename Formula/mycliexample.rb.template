@@ -2,7 +2,9 @@ class Mycliexample < Formula
   version "VERSION"
   desc "Example of releasing a CLI into brew, using GitOps principles"
   homepage "https://github.com/qcastel/mycliexample"
-  url "git@github.com:dataiku/dataiku-platform-tooling.git", :using => :git, :tag => 'VERSION'
+  url "git@github.com:dataiku/dataiku-platform-tooling.git",
+      tag:      "VERSION",
+      revision: "VERSION"
 
   def install
     # Install the executable to bin
