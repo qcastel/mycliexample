@@ -3,6 +3,7 @@ class Mycliexample < Formula
   desc "Example of releasing a CLI into brew, using GitOps principles"
   homepage "https://github.com/qcastel/mycliexample"
   url "git@github.com:qcastel/mycliexample.git",
+      using: :git
       tag:      "VERSION",
       revision: "VERSION"
 
